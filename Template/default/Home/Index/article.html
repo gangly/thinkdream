@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- head头部分开始 -->
+<head>
+	<include file="./Template/default/Home/Public/public_head.html" title="{$article['current']['title']}-"  keywords="{$article['current']['category']['keywords']}" description="{$article['current']['description']}" />
+	<script type="text/javascript" src="__PUBLIC__/static/ueditor1_4_3/third-party/SyntaxHighlighter/shCore.js"></script>
+	<link rel="stylesheet" href="__PUBLIC__/static/ueditor1_4_3/third-party/SyntaxHighlighter/shCoreDefault.css">
+	<script type="text/javascript">
+		SyntaxHighlighter.all();
+		saveLoginUrl="{:U('Home/User/save_login_url','','',true)}";
+		logoutUrl="{:U('Home/User/logout','','',true)}";
+	</script>
+	<script type="text/javascript" src="__HOME_JS__/oauth.js"></script>
+	<link rel="stylesheet" href="__HOME_CSS__/index.css">
+	{$Think.config.WEB_STATISTICS}
+</head>
+<!-- head头部分结束 -->
+<body>
+
+<!-- 顶部导航开始 -->
+<include file="./Template/default/Home/Public/public_banner.html" />
+<include file="./Template/default/Home/Public/public_nav.html" />
+<!-- 顶部导航结束 -->
+
+<!-- 主体部分开始 -->
+<div id="content">
+	<div class="b-inside">
+		<!-- 左侧列表开始 -->
+		<div class="left">
+			<div class="article">
+				<h1 class="title">{$article['current']['title']}</h1>
+				<ul class="metadata">
+					<li class="date">作者：{$article['current']['author']}</li>
+					<li class="date">发布时间：{$article['current']['addtime']|date='Y-m-d H:i:s',###}</li>
+					<li class="category">分类：<a href="{:U('Home/Index/category',array('cid'=>$v['cid']))}">{$article['current']['category']['cname']}</a>
+					<if condition="!empty($article['current']['tag'])">
+						<li class="tags ">标签：
+							<foreach name="article['current']['tag']" item="v">
+								<a href="{:U('Home/Index/tag',array('tid'=>$v['tid']))}">{$v['tname']}</a>
+							</foreach>
+						</li>
+					</if>							
+				</ul>
+				<div class="content-word">
+					{$article['current']['content']}
+					<eq name="article['current']['is_original']" value="1">
+						<p class="copyright">
+							{$Think.config.COPYRIGHT_WORD}
+						</p>
+					</eq>
+					<ul class="prev-next">
+						<li class="prev">
+							上一篇：
+							<empty name="article['prev']">
+								<span>没有了</span>
+							<else />
+								<a href="{:U('Home/Index/article',array('cid'=>isset($_GET['cid'])?$_GET['cid']:0,'tid'=>isset($_GET['tid'])?$_GET['tid']:0,'aid'=>$article['prev']['aid']))}">{$article['prev']['title']}</a>
+							</empty>
+						</li>
+						<li class="next">
+							下一篇：
+							<empty name="article['next']">
+								<span>没有了</span>
+							<else />
+								<a href="{:U('Home/Index/article',array('cid'=>isset($_GET['cid'])?$_GET['cid']:0,'tid'=>isset($_GET['tid'])?$_GET['tid']:0,'aid'=>$article['next']['aid']))}">{$article['next']['title']}</a>
+							</empty>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="comment">
+				<!-- 畅言评论系统开始 -->
+				<div id="SOHUCS" sid="{$Think.get.aid}"></div>
+				{$Think.config.CHANGYAN_COMMENT}
+				<!-- 畅言评论系统结束 -->
+			</div>
+		</div>
+		<!-- 左侧列表结束 -->
+
+		<!-- 右侧内容开始 -->
+		<include file="./Template/default/Home/Public/public_right.html" />
+		<!-- 右侧内容结束 -->
+	</div>
+</div>
+<!-- 主体部分结束 -->
+
+<!-- 通用底部文件开始 -->
+<include file="./Template/default/Home/Public/public_foot.html" />
+<!-- 通用底部文件结束 -->
+
+<!-- 登陆框开始 -->
+<include file="./Template/default/Home/Public/public_login.html" />
+<!-- 登陆框结束 -->
+</body>
+</html>

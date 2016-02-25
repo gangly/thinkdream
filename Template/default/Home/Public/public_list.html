@@ -1,0 +1,39 @@
+<!-- 左侧列表开始 -->
+<div class="list">
+	<foreach name="articles" item="v">
+		<div class="detail">
+			<h3 class="title"><a href="{:U('Home/Index/article',array('cid'=>isset($_GET['cid'])?$_GET['cid']:0,'tid'=>isset($_GET['tid'])?$_GET['tid']:0,'search_word'=>isset($_GET['search_word'])?$_GET['search_word']:0,'aid'=>$v['aid']))}">{$v['title']}</a></h3>
+			<ul class="metadata">
+				<li class="date"><span class="fa fa-user"></span>{$v['author']}</li>
+				<li class="date"><span class="fa fa-calendar"></span>{$v['addtime']|date='Y-m-d H:i:s',###}</li>
+				<li class="category"><span class="fa fa-list-alt"></span><a href="{:U('Home/Index/category',array('cid'=>$v['cid']))}">{$v['category']['cname']}</a>
+				<if condition="!empty($v['tag'])">
+					<li class="tags "><span class="fa fa-tags"></span>
+						<foreach name="v['tag']" item="n">
+							<a href="{:U('Home/Index/tag',array('tid'=>$n['tid']))}">{$n['tname']}</a>
+						</foreach>
+					</li>
+				</if>
+			</ul>
+			<div class="article">
+				<figure class="pic style1">
+					<img src="{$v['pic_path']}" alt="{$Think.config.IMAGE_TITLE_ALT_WORD}" title="{$Think.config.IMAGE_TITLE_ALT_WORD}">
+					<figcaption>
+						<p>{$v['title']}</p>
+						<a href="{:U('Home/Index/article',array('cid'=>isset($_GET['cid'])?$_GET['cid']:0,'tid'=>isset($_GET['tid'])?$_GET['tid']:0,'search_word'=>isset($_GET['search_word'])?$_GET['search_word']:0,'aid'=>$v['aid']))}"></a>
+					</figcaption>
+				</figure>
+				<div class="word">
+					<p class="description">
+						{$v['description']}
+					</p>
+					<div class="readall">
+						<a class="readall-a"  href="{:U('Home/Index/article',array('cid'=>isset($_GET['cid'])?$_GET['cid']:0,'tid'=>isset($_GET['tid'])?$_GET['tid']:0,'search_word'=>isset($_GET['search_word'])?$_GET['search_word']:0,'aid'=>$v['aid']))}">阅读全文</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</foreach>
+	{$page}
+</div>
+<!-- 左侧列表结束 -->

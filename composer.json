@@ -1,0 +1,19 @@
+{
+    "name": "gary",
+    "description": "the gary blog",
+    "type": "blog",
+    "keywords": ["gary","thinkphp","blog"],
+    "homepage": "http://garyblog.duapp.com",
+    "license": "Apache2",
+    "authors": [
+        {
+            "name": "gary",
+            "email": "gangly123@163.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "minimum-stability": "dev"
+}
+
